@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAccounts } from "../services/accountService";
+import ftfLogo from "../assets/ftf-logo-frontend.png";
 
 function Dashboard() {
   const [accounts, setAccounts] = useState([]);
@@ -16,7 +17,7 @@ function Dashboard() {
         setAccounts(response);
       } catch (error) {
         console.error("Failed to fetch accounts:", error);
-        setError("Unable to load account details.");
+        setError("Unable to load your accounts.");
       } finally {
         setLoading(false);
       }
@@ -25,128 +26,273 @@ function Dashboard() {
     fetchAccounts();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+//   const handleLogout = () => {
+//     localStorage.removeItem("token");
+//     navigate("/login");
+//   };
+
+const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+
+const handleLogout = () => {
+  setShowLogoutPopup(true);
+};
+
+const confirmLogout = () => {
+  localStorage.removeItem("token");
+  navigate("/login");
+};
+
+const cancelLogout = () => {
+  setShowLogoutPopup(false);
+};
 
   if (loading) {
-    return <div className="dashboard-page">Loading...</div>;
+    return (
+      <div className="dashboard-loading">
+        Loading...
+      </div>
+    );
   }
 
   return (
     <div className="dashboard-page">
 
       {/* Header */}
-      <header className="dashboard-header">
-        <div className="logo">
-          <h2>FTF</h2>
+      {/* <header className="dashboard-header">
+        <div className="dashboard-logo">
+          Financial Transaction Fabric 
         </div>
 
-        <button className="logout-button" onClick={handleLogout}>
+        <button
+          className="logout-button"
+          onClick={handleLogout}
+        >
           Logout
         </button>
-      </header>
+      </header> */}
+      {/* Header */}
+<header className="dashboard-header">
+  <div className="dashboard-logo">
+    <img
+      src={ftfLogo}
+      alt="Financial Transaction Fabric"
+      className="ftf-logo"
+    />
+    Financial Transaction Fabric 
+  </div>
 
-      {/* Main Content */}
+  <button
+    className="logout-button"
+    onClick={handleLogout}
+  >
+    Logout
+  </button>
+</header>
+
+      {/* Main */}
       <main className="dashboard-content">
 
-        <div className="welcome-section">
-          <h1>Welcome back 👋</h1>
-          <p>Manage your accounts and transactions.</p>
-        </div>
+        {/* Welcome */}
+        <section className="welcome-section">
+          <span className="dashboard-label">
+            DASHBOARD
+          </span>
 
-        {error && (
-          <p className="error-message">
-            {error}
+          <h1>Welcome back</h1>
+
+          <p>
+            Manage your accounts and transactions.
           </p>
+        </section>
+
+        {/* Error */}
+        {error && (
+          <div className="dashboard-error">
+            {error}
+          </div>
         )}
 
         {/* Accounts */}
         <section className="accounts-section">
 
-          <div className="section-header">
-            <h2>Your Accounts</h2>
+          <div className="section-heading">
+            <div>
+              <h2>Your Accounts</h2>
+              <span>
+                {accounts.length}{" "}
+                {accounts.length === 1
+                  ? "account"
+                  : "accounts"}
+              </span>
+            </div>
 
             <Link to="/create-account">
-              <button className="create-account-button">
+              <button className="create-button">
                 + Create Account
               </button>
             </Link>
           </div>
 
           {accounts.length === 0 ? (
-            <div className="empty-state">
-              <p>You don't have any accounts yet.</p>
+            <div className="empty-account">
+              <h3>No accounts yet</h3>
+
+              <p>
+                Create an account to start using FTF.
+              </p>
 
               <Link to="/create-account">
-                <button className="create-account-button">
-                  Create Your First Account
+                <button className="create-button">
+                  Create Account
                 </button>
               </Link>
             </div>
           ) : (
             <div className="accounts-grid">
-              {accounts.map((account) => (
-                <div className="account-card" key={account.id}>
 
-                  <div className="account-card-header">
-                    <span>{account.accountType}</span>
+              {accounts.map((account) => (
+                <div
+                  className="account-card"
+                  key={account.id}
+                >
+
+                  <div className="account-top">
+                    <div>
+                      <span className="account-type">
+                        {account.accountType}
+                      </span>
+
+                      <p>Account</p>
+                    </div>
+
                     <span className="account-status">
                       {account.status}
                     </span>
                   </div>
 
                   <div className="account-balance">
-                    <p>Available Balance</p>
+                    <span>Available Balance</span>
 
-                    <h2>
-                      {account.currency} {account.balance}
-                    </h2>
+                    <h3>
+                      {account.currency}{" "}
+                      {Number(account.balance).toLocaleString(
+                        "en-IN",
+                        {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        }
+                      )}
+                    </h3>
                   </div>
 
                   <div className="account-number">
-                    <p>Account Number</p>
-                    <strong>{account.accountNumber}</strong>
+                    <span>Account Number</span>
+
+                    <strong>
+                      {account.accountNumber}
+                    </strong>
                   </div>
 
-                  <div className="account-details">
+                  <div className="account-footer">
                     <span>
-                      Currency: {account.currency}
+                      {account.currency}
+                    </span>
+
+                    <span>
+                      Account ID: {account.id}
                     </span>
                   </div>
 
                 </div>
               ))}
+
             </div>
           )}
 
         </section>
 
-        {/* Actions */}
+        {/* Quick Actions */}
         <section className="quick-actions">
-          <h2>Quick Actions</h2>
+
+          <div className="section-heading">
+            <div>
+              <h2>Quick Actions</h2>
+              <span>Frequently used features</span>
+            </div>
+          </div>
 
           <div className="actions-grid">
 
-            <button className="action-button">
-              Transfer Money
-            </button>
+            <Link
+              to="/transaction"
+              className="action-card"
+            >
+              <div className="action-arrow">
+                →
+              </div>
 
-            <button className="action-button">
-              Transactions
-            </button>
+              <div>
+                <h3>Transfer Money</h3>
+                <p>
+                  Send money to another account
+                </p>
+              </div>
+            </Link>
 
-            <button className="action-button">
-              Limits
-            </button>
+            <div className="action-card action-disabled">
+              <div className="action-arrow">
+                →
+              </div>
+
+              <div>
+                <h3>Transactions</h3>
+                <p>
+                  View transaction history
+                </p>
+              </div>
+            </div>
+
+            <div className="action-card action-disabled">
+              <div className="action-arrow">
+                →
+              </div>
+
+              <div>
+                <h3>Limits</h3>
+                <p>
+                  View transaction limits
+                </p>
+              </div>
+            </div>
 
           </div>
+
         </section>
 
       </main>
+ {showLogoutPopup && (
+  <div className="logout-overlay">
+    <div className="logout-popup">
+      <h3>Log out?</h3>
+      <p>Are you sure you want to log out of your account?</p>
+
+      <div className="logout-actions">
+        <button className="logout-no" onClick={cancelLogout}>
+          No
+        </button>
+
+        <button className="logout-yes" onClick={confirmLogout}>
+          Yes
+        </button>
+      </div>
     </div>
+  </div>
+)}
+    </div>
+    /**                       popup */
+    
   );
+ 
 }
 
 export default Dashboard;

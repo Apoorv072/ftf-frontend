@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { signup } from "../services/authService";
 import { Link } from "react-router-dom";
+import ftfLogo from "../assets/ftf-logo-frontend.png";
+import ftfBackground from "../assets/ftf-background-frontend.png";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -45,9 +47,21 @@ function Signup() {
   };
 
   return (
+    <div
+          className="auth-container"
+          style={{ backgroundImage: `url(${ftfBackground})` }}
+        >
     <div className="login-container">
       <div className="login-card">
-        <h1>FTF</h1>
+        <div className="login-ftf-brand">
+         <h1>FTF</h1>
+       
+         <img
+           src={ftfLogo}
+           alt="FTF"
+           className="login-ftf-logo"
+         />
+       </div>
         <p>Financial Transaction Fabric</p>
 
         <form onSubmit={handleSignup}>
@@ -132,6 +146,7 @@ function Signup() {
         </p>
       </div>
     </div>
+   </div>
   );
 }
 

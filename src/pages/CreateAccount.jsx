@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createAccount } from "../services/accountService";
+import ftfLogo from "../assets/ftf-logo-frontend.png";
 
 function CreateAccount() {
   const [accountType, setAccountType] = useState("SAVINGS");
@@ -20,7 +21,15 @@ function CreateAccount() {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h1>FTF</h1>
+        <div className="login-ftf-brand">
+          <h1>FTF</h1>
+        
+          <img
+            src={ftfLogo}
+            alt="FTF"
+            className="login-ftf-logo"
+          />
+        </div>
         <p>Create your bank account</p>
 
         <form onSubmit={handleCreateAccount}>
