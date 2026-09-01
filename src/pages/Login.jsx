@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { login } from "../services/authService";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation  } from "react-router-dom";
 import ftfLogo from "../assets/ftf-logo-frontend.png";
 import ftfBackground from "../assets/ftf-background-frontend.png";
 
@@ -8,6 +8,8 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const sessionExpired = location.state?.sessionExpired;
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -17,9 +19,11 @@ function Login() {
 
       localStorage.setItem("token", response.token);
 
+      window.dispatchEvent(new Event("authChange"));
+
       console.log("Login successful");
 
-      navigate("/dashboard");
+      navigate("/dashboard", { replace: true });
     } catch (error) {
       console.error("Login failed:", error);
     }
@@ -66,7 +70,7 @@ function Login() {
             />
           </div>
 
-          <button type="submit" className="login-button">
+          <button type="submit">
             Login
           </button>
           <p>
@@ -75,8 +79,30 @@ function Login() {
         </form>
       </div>
     </div>
+
+    {sessionExpired && (
+  <div className="session-popup">
+    <div className="session-popup-content">
+      <h3>Session Expired</h3>
+      <p>Your session has expired. Please login again.</p>
+
+      <button
+        onClick={() =>
+          navigate("/login", {
+            replace: true,
+            state: {},
+          })
+        }
+      >
+        OK
+      </button>
     </div>
+  </div>
+)}
+    </div>
+    
   );
+  
 }
 
 export default Login;

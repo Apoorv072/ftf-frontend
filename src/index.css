@@ -662,3 +662,84 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+/*  Account creation page custom drop down button*/
+.custom-select {
+  position: relative;
+  width: 100%;
+}
+
+.custom-select select {
+  width: 100%;
+  height: 48px;
+  padding: 0 42px 0 14px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  background: #fff;
+  color: #222;
+  font-size: 14px;
+  font-family: inherit;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-select select:hover {
+  border-color: #bdbdbd;
+}
+
+.custom-select select:focus {
+  border-color: #999;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+.select-arrow {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-55%);
+  font-size: 18px;
+  color: #777;
+  pointer-events: none;
+}
+
+/*Automatic logout*/
+.session-popup {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+}
+
+.session-popup-content {
+  width: 320px;
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.session-popup-content h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.session-popup-content p {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: #666;
+}
+
+.session-popup-content button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
