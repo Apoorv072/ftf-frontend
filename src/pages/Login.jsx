@@ -70,7 +70,7 @@ function Login() {
             />
           </div>
 
-          <button type="submit">
+          <button type="submit" className="action-button">
             Login
           </button>
           <p>
@@ -83,7 +83,7 @@ function Login() {
     {sessionExpired && (
   <div className="session-popup">
     <div className="session-popup-content">
-      <h3>Session Expired</h3>
+      <h3>Session Expired!</h3>
       <p>Your session has expired. Please login again.</p>
 
       <button

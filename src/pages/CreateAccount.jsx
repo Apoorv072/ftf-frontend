@@ -1,24 +1,34 @@
 import { useState } from "react";
 import { createAccount } from "../services/accountService";
 import ftfLogo from "../assets/ftf-logo-frontend.png";
+import ftfaccountBackground from "../assets/ftf-Account-background.png";
 
 function CreateAccount() {
   const [accountType, setAccountType] = useState("SAVINGS");
   const [currency, setCurrency] = useState("INR");
 
+  const [accountCreated, setAccountCreated] = useState(false);
+
   const handleCreateAccount = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await createAccount(accountType, currency);
+   const response = await createAccount(accountType, currency);
 
-      console.log("Account created:", response);
-    } catch (error) {
-      console.error("Account creation failed:", error);
-    }
+   console.log("Account created:", response);
+
+   setAccountCreated(true);
+        } catch (error) 
+        {
+          console.error("Account creation failed:", error);
+        }
   };
 
   return (
+    <div
+          className="auth-container"
+          style={{ backgroundImage: `url(${ftfaccountBackground})` }}
+        >
     <div className="login-container">
       <div className="login-card">
 
@@ -71,12 +81,28 @@ function CreateAccount() {
             </div>
           </div>
 
-          <button type="submit">
+          <button type="submit" className="action-button">
             Create Account
           </button>
 
         </form>
       </div>
+      </div>
+      {accountCreated && (
+  <div className="session-popup">
+    <div className="session-popup-content">
+      <h3>Account Created!</h3>
+
+      <p>Your bank account has been created successfully.</p>
+
+      <button
+        onClick={() => setAccountCreated(false)}
+      >
+        OK
+      </button>
+    </div>
+  </div>
+)}
     </div>
   );
 }

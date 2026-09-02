@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getAccounts } from "../services/accountService";
+import { getAccounts, getName } from "../services/accountService";
 import ftfLogo from "../assets/ftf-logo-frontend.png";
+import ftfBackground from "../assets/ftf-background-dashboad.png";
 
 function Dashboard() {
   const [accounts, setAccounts] = useState([]);
@@ -9,7 +10,7 @@ function Dashboard() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
+  const Name =  getName();
   useEffect(() => {
     const fetchAccounts = async () => {
       try {
@@ -22,14 +23,9 @@ function Dashboard() {
         setLoading(false);
       }
     };
-
+    
     fetchAccounts();
   }, []);
-
-//   const handleLogout = () => {
-//     localStorage.removeItem("token");
-//     navigate("/login");
-//   };
 
 const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 
@@ -89,6 +85,10 @@ const cancelLogout = () => {
   </button>
 </header>
 
+    <div
+      className="auth-container"
+      style={{ backgroundImage: `url(${ftfBackground})` }}
+    >
       {/* Main */}
       <main className="dashboard-content">
 
@@ -98,7 +98,7 @@ const cancelLogout = () => {
             DASHBOARD
           </span>
 
-          <h1>Welcome back</h1>
+          <h1>Welcome {Name}</h1>
 
           <p>
             Manage your accounts and transactions.
@@ -239,37 +239,25 @@ const cancelLogout = () => {
               </div>
             </Link>
 
-            <div className="action-card action-disabled">
-              <div className="action-arrow">
-                →
-              </div>
+            <Link to="/transaction-history" className="action-card">
+             <div className="action-arrow">
+                 →
+             </div>
 
-              <div>
-                <h3>Transactions</h3>
-                <p>
-                  View transaction history
-                </p>
-              </div>
-            </div>
+            <div>
+             <h3>Transaction History</h3>
+            <p>View your recent transactions</p>
+           </div>
+          </Link>
 
-            <div className="action-card action-disabled">
-              <div className="action-arrow">
-                →
-              </div>
-
-              <div>
-                <h3>Limits</h3>
-                <p>
-                  View transaction limits
-                </p>
-              </div>
-            </div>
-
+          
+               {/* Add Quick Actions  for limits in future if needed */}
           </div>
 
         </section>
 
       </main>
+      </div>
  {showLogoutPopup && (
   <div className="logout-overlay">
     <div className="logout-popup">

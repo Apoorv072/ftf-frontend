@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getAccounts } from "../services/accountService";
 import { createTransaction } from "../services/transactionService";
 import ftfLogo from "../assets/ftf-logo-frontend.png";
+import ftftransactionBackground from "../assets/ftf-transaction-background.png";
 
 function Transaction() {
   const [accounts, setAccounts] = useState([]);
@@ -130,6 +131,10 @@ const cancelLogout = () => {
   </button>
   </header>
 
+ <div
+      className="auth-container"
+      style={{ backgroundImage: `url(${ftftransactionBackground})` }}
+    >
       <main className="dashboard-content">
         <div className="transaction-card">
 
@@ -225,13 +230,14 @@ const cancelLogout = () => {
               />
             </div>
 
-            <button type="submit" disabled={submitting}>
+            <button type="submit" className="action-button" disabled={submitting}>
               {submitting ? "Processing..." : "Transfer Money"}
             </button>
 
           </form>
         </div>
       </main>
+      </div>
       {showLogoutPopup && (
   <div className="logout-overlay">
     <div className="logout-popup">

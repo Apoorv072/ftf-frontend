@@ -8,6 +8,8 @@ import GuestRoute from "./pages/GuestRoute";
 import ProtectedRoute from "./pages/ProtectedRoute"; 
 import AuthHistoryGuard from "./pages/AuthHistoryGuard";
 import AuthWatcher from "./pages/AuthWatcher";
+import VerifyOtp from "./pages/VerifyOtp";
+import TransactionHistory from "./pages/TransactionHistory";
 function App() {
   return (
     <BrowserRouter>
@@ -19,13 +21,15 @@ function App() {
          <Route element={<GuestRoute />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/verify-otp" element={<VerifyOtp />} />
         </Route>
         
-        <Route element={<ProtectedRoute />}>
+      <Route element={<ProtectedRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/transaction" element={<Transaction />} />
         <Route path="/create-account" element={<CreateAccount />} />
-         </Route>
+        <Route path="/transaction-history" element={<TransactionHistory />}
+/>    </Route>
 
        
       </Routes>

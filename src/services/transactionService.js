@@ -19,3 +19,17 @@ export const createTransaction = async (transaction) => {
   return response.data;
 };
 
+export const getTransactionsByAccountNumber = async (accountNumber) => {
+  const token = localStorage.getItem("token");
+
+  const response = await axios.get(
+    `http://localhost:8080/api/v1/transactions/history/${accountNumber}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};

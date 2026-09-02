@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { signup } from "../services/authService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ftfLogo from "../assets/ftf-logo-frontend.png";
 import ftfBackground from "../assets/ftf-background-frontend.png";
 
 function Signup() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -40,8 +41,13 @@ function Signup() {
         password: formData.password
       });
 
-      console.log("Signup successful:", response);
-    } catch (error) {
+     console.log("Signup successful:", response);
+
+      navigate("/verify-otp", {
+      state: { email: formData.email }
+  });
+
+}catch (error) {
       console.error("Signup failed:", error);
     }
   };
@@ -113,7 +119,7 @@ function Signup() {
           </div>
 
           <div className="form-group">
-            <label>Password</label>
+            <label>Create Password</label>
             <input
               type="password"
               name="password"
@@ -136,7 +142,7 @@ function Signup() {
             />
           </div>
 
-          <button type="submit">
+          <button type="submit" className="action-button">
             Sign Up
           </button>
         </form>
