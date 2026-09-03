@@ -19,7 +19,7 @@ body {
   width: 380px;
   padding: 35px;
   background: white;
-  border-radius: 10px;
+  border-radius: 14px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -556,7 +556,7 @@ body {
   margin: 0 auto;
   background: white;
   border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border-radius: 14px;
   padding: 30px;
 }
 
@@ -971,4 +971,50 @@ body {
   text-align: center;
   color: #777;
   font-size: 13px;
+}
+
+.signup-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 24px;
+    row-gap: 20px;
+    width: 100%;
+}
+
+.signup-form .form-group {
+    width: 100%;
+    margin: 0;
+}
+
+.signup-form .form-group input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.signup-form .action-button {
+    grid-column: 1 / -1;
+    width: 100%;
+}
+
+/* Signup page card - does NOT affect Login card */
+.signup-card {
+    width: 720px;
+    max-width: 92vw;
+    border-radius: 14px;
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+    .signup-card {
+        width: 92vw;
+    }
+
+    .signup-form {
+        grid-template-columns: 1fr;
+    }
+
+    .signup-form .action-button {
+        grid-column: auto;
+    }
 }

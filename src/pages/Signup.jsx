@@ -58,7 +58,7 @@ function Signup() {
           style={{ backgroundImage: `url(${ftfBackground})` }}
         >
     <div className="login-container">
-      <div className="login-card">
+      <div className="login-card signup-card">
         <div className="login-ftf-brand">
          <h1>FTF</h1>
        
@@ -70,82 +70,83 @@ function Signup() {
        </div>
         <p>Financial Transaction Fabric</p>
 
-        <form onSubmit={handleSignup}>
-          <div className="form-group">
-            <label>First Name</label>
-            <input
-              type="text"
-              name="firstName"
-              placeholder="Enter your first name"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-            />
-          </div>
+       <form onSubmit={handleSignup} className="signup-form">
 
-          <div className="form-group">
-            <label>Last Name</label>
-            <input
-              type="text"
-              name="lastName"
-              placeholder="Enter your last name"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-            />
-          </div>
+  <div className="form-group">
+    <label>First Name</label>
+    <input
+      type="text"
+      name="firstName"
+      placeholder="Enter your first name"
+      value={formData.firstName}
+      onChange={handleChange}
+      required
+    />
+  </div>
 
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
+  <div className="form-group">
+    <label>Last Name</label>
+    <input
+      type="text"
+      name="lastName"
+      placeholder="Enter your last name"
+      value={formData.lastName}
+      onChange={handleChange}
+      required
+    />
+  </div>
 
-          <div className="form-group">
-            <label>Phone Number</label>
-            <input
-              type="tel"
-              name="phoneNumber"
-              placeholder="Enter your phone number"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-            />
-          </div>
+  <div className="form-group">
+    <label>Email</label>
+    <input
+      type="email"
+      name="email"
+      placeholder="Enter your email"
+      value={formData.email}
+      onChange={handleChange}
+      required
+    />
+  </div>
 
-          <div className="form-group">
-            <label>Create Password</label>
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
+  <div className="form-group">
+    <label>Phone Number</label>
+    <input
+      type="tel"
+      name="phoneNumber"
+      placeholder="Enter your phone number"
+      value={formData.phoneNumber}
+      onChange={handleChange}
+    />
+  </div>
 
-          <div className="form-group">
-            <label>Confirm Password</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              placeholder="Confirm your password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              required
-            />
-          </div>
+  <div className="form-group">
+    <label>Create Password</label>
+    <input
+      type="password"
+      name="password"
+      placeholder="Enter your password"
+      value={formData.password}
+      onChange={handleChange}
+      required
+    />
+  </div>
 
-          <button type="submit" className="action-button">
-            Sign Up
-          </button>
-        </form>
+  <div className="form-group">
+    <label>Confirm Password</label>
+    <input
+      type="password"
+      name="confirmPassword"
+      placeholder="Confirm your password"
+      value={formData.confirmPassword}
+      onChange={handleChange}
+      required
+    />
+  </div>
+
+  <button type="submit" className="action-button">
+    Sign Up
+  </button>
+</form>
 
         <p>
           Already have an account? <Link to="/login">Login</Link>
